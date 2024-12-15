@@ -11,6 +11,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    double screenwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Epioneer",
@@ -92,7 +93,7 @@ class _HomeState extends State<Home> {
                             children: [
                               // ignore: sized_box_for_whitespace
                               Container(
-                                width: 400,
+                                width: screenwidth * 0.4,
                                 child: const TextField(
                                   decoration: InputDecoration(
                                       border: OutlineInputBorder(),
