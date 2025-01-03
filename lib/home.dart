@@ -1,5 +1,5 @@
-import 'package:epioneer_app/anime.dart';
 import 'package:flutter/material.dart';
+import 'anime.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -9,6 +9,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List<Animationn> animations = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetch().then((_) {
+      setState(() {
+        animations = AS;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
@@ -42,14 +54,12 @@ class _HomeState extends State<Home> {
                 ),
               ),
               Container(
-                width: 600,
                 margin: const EdgeInsets.all(8),
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                     color: Colors.grey[850],
                     borderRadius: BorderRadius.circular(20)),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -91,7 +101,6 @@ class _HomeState extends State<Home> {
                           const SizedBox(height: 20),
                           Row(
                             children: [
-                              // ignore: sized_box_for_whitespace
                               Container(
                                 width: screenwidth * 0.4,
                                 child: const TextField(
@@ -111,7 +120,6 @@ class _HomeState extends State<Home> {
               Center(
                 child: Column(children: [
                   Container(
-                    width: 1700,
                     margin: const EdgeInsets.all(8),
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
@@ -124,15 +132,14 @@ class _HomeState extends State<Home> {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                     )),
                   ),
-                  //ITEMS
                   Column(
-                    children: [
-                      Container(
-                        width: 1700,
+                    children: animations.map((anime) {
+                      return Container(
+                        width: screenwidth * 0.95,
                         margin: const EdgeInsets.all(8),
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
-                            color: Colors.grey[850],
+                            color: Colors.grey[800],
                             borderRadius: BorderRadius.circular(20),
                             border: const Border(
                                 bottom:
@@ -141,127 +148,66 @@ class _HomeState extends State<Home> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              height: 200,
+                              height: 300,
                               width: 200,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                               ),
-                              child: Image.asset(
-                                'assets/images/JJK.jpg',
+                              child: Image.network(
+                                anime.image,
                                 fit: BoxFit.cover,
                               ),
                             ),
                             const SizedBox(width: 20),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(height: 20),
-                                Text(
-                                  AS[0].toString(),
-                                  style: const TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Text(""),
-                              ],
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(height: 20),
+                                  Text(
+                                    anime.Name,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    "Season: ${anime.Season}",
+                                    style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    "Release Date: ${anime.Date}",
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    anime.description,
+                                    style: const TextStyle(
+                                      color: Colors.white70,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
-                      ),
-                      Container(
-                        width: 1700,
-                        margin: const EdgeInsets.all(8),
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            color: Colors.grey[850],
-                            borderRadius: BorderRadius.circular(20),
-                            border: const Border(
-                                bottom:
-                                    BorderSide(color: Colors.red, width: 2))),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              height: 200,
-                              width: 200,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Image.asset(
-                                'assets/images/DemonSlayer.webp',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            const SizedBox(width: 20),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(height: 20),
-                                Text(
-                                  AS[1].toString(),
-                                  style: const TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Text(""),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: 1700,
-                        margin: const EdgeInsets.all(8),
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            color: Colors.grey[850],
-                            borderRadius: BorderRadius.circular(20),
-                            border: const Border(
-                                bottom:
-                                    BorderSide(color: Colors.red, width: 2))),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              height: 200,
-                              width: 200,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Image.asset(
-                                'assets/images/FateGrandOrder.jpg',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                            const SizedBox(width: 20),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(height: 20),
-                                Text(
-                                  AS[2].toString(),
-                                  style: const TextStyle(
-                                      color: Colors.white, fontSize: 20),
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Text(""),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  )
+                      );
+                    }).toList(),
+                  ),
                 ]),
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );
